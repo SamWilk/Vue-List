@@ -1,5 +1,4 @@
 /node_modules
-/client
 
 .env
 .env_local
