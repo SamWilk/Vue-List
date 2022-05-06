@@ -28,12 +28,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 const ConnectDB = async () => {
-  const client = await mongodb.MongoClient.connect(
-    "mongodb+srv://samwilk18:Nikeair18!@vue-todo.evdlr.mongodb.net/Vue-todo?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-    }
-  );
+  const client = await mongodb.MongoClient.connect(process.env.MONGODBMURL, {
+    useNewUrlParser: true,
+  });
   return client.db("vue-todo").collection("posts");
 };
 
