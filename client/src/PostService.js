@@ -1,4 +1,4 @@
-import axios from "axios";
+const axios = require("axios");
 
 const url = `http://localhost:${process.env.PORT}/api/posts/`;
 
