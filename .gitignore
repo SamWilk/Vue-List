@@ -3,3 +3,6 @@
 
 .env
 .env_local
+
+package-lock.json
+/client/package-lock.json
