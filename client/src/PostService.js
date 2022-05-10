@@ -5,7 +5,7 @@ const url = `http://localhost:${process.env.PORT}/api/posts/`;
 class PostService {
   //getPost
   static getPost() {
-    return new Promise(async (resolve, reject) => {
+    const temp = new Promise(async (resolve, reject) => {
       try {
         const res = await axios.get(url);
         const data = res.data;
@@ -19,6 +19,7 @@ class PostService {
         reject(error);
       }
     });
+    return temp;
   }
 
   //Create Post
@@ -28,7 +29,7 @@ class PostService {
     });
   }
   //Delete Post
-  static insertPost(id) {
+  static deletePost(id) {
     return axios.delete(`${url}${id}`);
   }
 }
