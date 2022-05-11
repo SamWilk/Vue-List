@@ -1,23 +1,81 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
+    <p class="error" v-if="err">{{ err }}</p>
+    <div class="inputCont">
+      <label for="inputCont" class="inputLabel"
+        >Create a todo
+        <input
+          type="text"
+          class="field"
+          placeholder="Create a todo"
+          v-model="text"
+        />
+        <button class="submitBtn" @click="createPost">Create</button></label
+      >
+    </div>
+    <div class="updatePost" v-if="updateFlag">
+      <input type="text" class="updateIn" />
+    </div>
+    <div class="container">
+      <div
+        v-for="(post, index) in posts"
+        v-bind:item="post"
+        v-bind:index="index"
+        v-bind:key="post._id"
+      >
+        <p
+          v-bind:style="flag ? 'color: gray' : 'color: black'"
+          @dblclick="deletePost(post._id)"
+          :disabled="flag"
+          @click="updatePost(post._id)"
+        >
+          {{ post.text }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+// import PostService from "../PostService.ts";
+import PostService from "../PostService";
 
 export default defineComponent({
   name: "HelloWorld",
-  props: {
-    msg: String,
+  data() {
+    return {
+      posts: [],
+      err: "",
+      text: "",
+      flag: false,
+      updateFlag: false,
+      udateText: "",
+    };
+  },
+
+  async created() {
+    try {
+      this.posts = await PostService.getPost();
+    } catch (error: any) {
+      this.err = error.message;
+    }
+  },
+  methods: {
+    async createPost() {
+      await PostService.createPost(this.text);
+      this.posts = await PostService.getPost();
+      this.text = "";
+    },
+    async deletePost(id: string) {
+      this.flag = true;
+      await PostService.deletePost(id);
+      this.posts = await PostService.getPost();
+      this.flag = false;
+    },
+    async updatePost(id: string) {
+      this.updateFlag = !this.updateFlag;
+    },
   },
 });
 </script>

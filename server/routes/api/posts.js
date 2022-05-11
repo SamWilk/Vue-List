@@ -5,7 +5,9 @@ const router = express.Router();
 //Get POST
 router.get("/", async (req, res) => {
   const post = await ConnectDB();
-  res.status(200).send(await post.find({}).toArray());
+  const data = await post.find({}).toArray();
+  console.log("Posts: ", data);
+  res.status(200).send(data);
 });
 
 //Post posts
@@ -16,6 +18,13 @@ router.post("/", async (req, res) => {
     createdAt: new Date(),
   });
   res.status(201).send("Created Post!");
+});
+
+//Update Post
+router.put("/:id", async (req, res) => {
+  const post = await ConnectDB();
+  const data = await post.find({ _id: req.params.id });
+  console.log("Updating Post", data);
 });
 
 //Delete post
