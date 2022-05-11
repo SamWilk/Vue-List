@@ -10,7 +10,7 @@ import { defineComponent } from "vue";
 import CreatePost from "../components/CreatePost.vue"; // @ is an alias to /src
 
 export default defineComponent({
-  name: "HomeView",
+  name: "CreatePostView",
   components: {
     CreatePost,
   },
