@@ -12,7 +12,7 @@
           v-model="text"
           rows="5"
         />
-        <button class="Btn" @click="createPost">Create</button>
+        <button class="Btn" @click="createPost" :disabled="flag">Create</button>
       </label>
     </div>
     <div class="updatePost" v-if="updateFlag">
@@ -77,9 +77,11 @@ export default defineComponent({
   },
   methods: {
     async createPost() {
+      this.flag = !this.flag;
       await PostService.createPost(this.text);
       this.posts = await PostService.getPost();
       this.text = "";
+      this.flag = !this.flag;
     },
     async deletePost(id: string) {
       this.flag = true;
