@@ -1,13 +1,15 @@
 <template>
   <div class="content">
     <div class="gitUrl">
-      <img alt="Github" src="@/assets/GitImg.png" class="GitImg" />
       <a
         href="https://github.com/SamWilk/Vue-List"
         target="_blank"
         class="gitHub"
-        >Github</a
-      >
+        ><img alt="Github" src="@/assets/GitImg.png" class="GitImg"
+      /></a>
+    </div>
+    <div class="vueJs">
+      <img alt="Vue Js" src="@/assets/VueJs.jpeg" class="VueImg" />
     </div>
   </div>
 </template>
@@ -46,5 +48,11 @@ export default defineComponent({
   background: black;
   padding: 5px;
   border-radius: 50%;
+}
+
+.VueImg {
+  background: white;
+  height: 10rem;
+  width: 15rem;
 }
 </style>
